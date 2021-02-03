@@ -6,8 +6,8 @@ namespace Enterprise
     {
         public Department Department;
         public string Name;
-        public byte Age;
-        public uint TabNum;
+        public byte? Age;
+        public uint? TabNum;
     }
 
     class Department
@@ -25,7 +25,35 @@ namespace Enterprise
     {
         static void Main(string[] args)
         {
-            Employee employee1 = GetEmployee();
+            Employee employee = GetEmployee();
+
+            Console.WriteLine("\t*Карточка сотрудника*\n");
+
+            Console.WriteLine("Имя: {0}", employee.Name ?? "Нет данных!");
+
+            if (employee.Age.HasValue)
+            {
+                Console.WriteLine("Возраст: {0}", employee.Age.Value);
+            }
+            else
+            {
+                Console.WriteLine("Возраст: Нет данных!");
+            }
+
+            if (employee.TabNum.HasValue)
+            {
+                Console.WriteLine("Табельный номер: {0}", employee.TabNum.Value);
+            }
+            else
+            {
+                Console.WriteLine("Табельный номер: Нет данных!");
+            }
+
+            Console.WriteLine("Отдел: {0}", employee.Department?.Name ?? "Нет данных!");
+
+            Console.WriteLine("Компания: {0}", employee.Department?.Company?.Name ?? "Нет данных!");
+
+            Console.ReadKey(true);
         }
 
         static Employee GetEmployee()
@@ -41,7 +69,7 @@ namespace Enterprise
             employee.Department = department;
             employee.Name = "Владимир";
             employee.Age = 37;
-            employee.TabNum = 87192;
+            //employee.TabNum = 87192;
 
             return employee;
         }
